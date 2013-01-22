@@ -31,23 +31,27 @@ namespace javaidx
                     return;
                 }
 
+                if (options.Directory.Length == 0 & options.File.Length == 0)
+                {
+                    Console.WriteLine("Either the file (-f) or directory (-d) parameter value must be set");
+                    return;
+                }
+
                 if (options.Directory.Length > 0 & options.File.Length > 0)
                 {
                     Console.WriteLine("The file (-f) and directory (-d) parameters cannot be set at the same time");
                     return;
                 }
 
-                string path = @"M:\Projects\Applications\Personal\javaidx\Development\781da39f-6b6c0267.idx";
-
                 if (options.File.Length > 0)
                 {
                     if (File.Exists(options.File) == false)
                     {
+                        Console.WriteLine("The IDX file does not exist");
                         return;
                     }
 
-                    CacheEntry cacheEntry = new CacheEntry(path);
-                    //CacheEntry cacheEntry = new CacheEntry(options.File);
+                    CacheEntry cacheEntry = new CacheEntry(options.File);
                     if (cacheEntry.Error == true)
                     {
                         Console.WriteLine("Unable to parse IDX file");
@@ -59,11 +63,9 @@ namespace javaidx
                 else
                 {
                     List<CacheEntry> cacheEntries = new List<CacheEntry>();
-                    //foreach (string file in Directory.EnumerateFiles(path, "*.idx", SearchOption.AllDirectories))
                     foreach (string file in Directory.EnumerateFiles(options.Directory, "*.idx", SearchOption.AllDirectories))
                     {
-                        Console.WriteLine(file);
-                        CacheEntry cacheEntry = new CacheEntry(path);
+                        CacheEntry cacheEntry = new CacheEntry(file);
                         if (cacheEntry.Error == true)
                         {
                             Console.WriteLine("Unable to parse IDX file: " + file);
@@ -90,6 +92,7 @@ namespace javaidx
         private static CsvWriterOptions SetCsvWriterConfig(Options options)
         {
             CsvHelper.CsvWriterOptions csvWriterOptions = new CsvWriterOptions();
+
             try
             {
                 switch (options.Delimiter)
@@ -199,13 +202,14 @@ namespace javaidx
                     foreach (CacheEntry cacheEntry in sorted)
                     {
                         text.AppendFormat("File Path: {0}{1}", cacheEntry.FilePath, Environment.NewLine);
-                        text.AppendFormat("File Path: {0}{1}", cacheEntry.FileName, Environment.NewLine);
-                        text.AppendFormat("File Path: {0}{1}", cacheEntry.Url, Environment.NewLine);
-                        text.AppendFormat("File Path: {0}{1}", cacheEntry.HeadersText, Environment.NewLine);
-                        text.AppendFormat("File Path: {0}{1}", cacheEntry.ContentLength, Environment.NewLine);
-                        text.AppendFormat("File Path: {0}{1}", cacheEntry.LastModified.ToShortDateString() + " " + cacheEntry.LastModified.ToShortTimeString(), Environment.NewLine);
-                        text.AppendFormat("File Path: {0}{1}", cacheEntry.ExpirationDate.ToShortDateString() + " " + cacheEntry.ExpirationDate.ToShortTimeString(), Environment.NewLine);
-                        text.AppendFormat("File Path: {0}{1}", cacheEntry.ValidationTimestamp.ToShortDateString() + " " + cacheEntry.ValidationTimestamp.ToShortTimeString(), Environment.NewLine);
+                        text.AppendFormat("File Name: {0}{1}", cacheEntry.FileName, Environment.NewLine);
+                        text.AppendFormat("URL: {0}{1}", cacheEntry.Url, Environment.NewLine);
+                        text.AppendFormat("Headers: {1}{0}", cacheEntry.HeadersText, Environment.NewLine);
+                        text.AppendFormat("Content Length: {0}{1}", cacheEntry.ContentLength, Environment.NewLine);
+                        text.AppendFormat("Modified: {0}{1}", cacheEntry.LastModified.ToShortDateString() + " " + cacheEntry.LastModified.ToShortTimeString(), Environment.NewLine);
+                        text.AppendFormat("Expiration: {0}{1}", cacheEntry.ExpirationDate.ToShortDateString() + " " + cacheEntry.ExpirationDate.ToShortTimeString(), Environment.NewLine);
+                        text.AppendFormat("Validation: {0}{1}", cacheEntry.ValidationTimestamp.ToShortDateString() + " " + cacheEntry.ValidationTimestamp.ToShortTimeString(), Environment.NewLine);
+                        text.AppendLine(string.Empty);
 
                         csvWriter.WriteField(cacheEntry.FilePath);
                         csvWriter.WriteField(cacheEntry.FileName);
@@ -225,14 +229,14 @@ namespace javaidx
                         output = streamReader.ReadToEnd();
                     }
 
-                    //Console.Write(output.Replace("\r", string.Empty).Replace("\n", string.Empty));
+                    Console.Write(text);
 
                     if (options.Output.Length > 0)
                     {
-                        string ret = IO.WriteUnicodeTextToFile(output, options.Output, false);
+                        string ret = IO.WriteTextToFile(output, options.Output, false);
                         if (ret.Length > 0)
                         {
-                            Console.Write("An error occurred whilst outputing the ");
+                            Console.Write("An error occurred whilst outputting the CSV/TSV file: " + ret);
                         }
                     }
                 }

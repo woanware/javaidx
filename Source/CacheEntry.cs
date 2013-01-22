@@ -64,6 +64,7 @@ namespace javaidx
         }
         #endregion
 
+        #region Private Methods
         /// <summary>
         /// 
         /// </summary>
@@ -260,7 +261,9 @@ namespace javaidx
                 Error = true;
             }
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// 
         /// </summary>
@@ -273,16 +276,19 @@ namespace javaidx
                 {
                     if (nameValue.Name.Trim().Length > 0)
                     {
-                        output.AppendFormat("{0}: {1}" + Environment.NewLine, nameValue.Name, nameValue.Value);
+                        //output.AppendFormat(" {0}: {1}" + Environment.NewLine, nameValue.Name, nameValue.Value);
+                        output.AppendFormat(" {0}: {1}", nameValue.Name, nameValue.Value);
                     }
                     else
                     {
-                        output.AppendFormat("{0}" + Environment.NewLine, nameValue.Value);
+                        //output.AppendFormat(" {0}" + Environment.NewLine, nameValue.Value);
+                        output.AppendFormat(" {0}", nameValue.Value);
                     }
                 }
 
                 return output.ToString();
             }
         }
+        #endregion
     }
 }
