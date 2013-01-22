@@ -23,7 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommandLine">
-      <HintPath>..\..\Dependencies\CommandLine\CommandLine.dll</HintPath>
+      <HintPath>..\Dependencies\CommandLine\CommandLine.dll</HintPath>
     </Reference>
     <Reference Include="CsvHelper">
       <HintPath>..\Dependencies\CsvHelper\CsvHelper.dll</HintPath>
