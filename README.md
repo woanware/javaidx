@@ -1,7 +1,12 @@
 javaidx
 =======
 
-javaidx is a console application for parsing Java IDX cache files. The repo also contains a pdf document that describes the binary format of the IDX files.
+javaidx is a console application for parsing Java IDX cache files. The repo also contains a pdf document that describes the binary format of the IDX files. 
+
+## Features ##
+- Outputs to CSV with custom delimiter
+- Sorting by url,length,modified,expiration,validation
+
 
 ## Third party libraries ##
 
