@@ -1,11 +1,11 @@
-﻿using System;
+﻿using CommandLine;
+using CsvHelper;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using CommandLine;
-using CsvHelper;
 using woanware;
 
 namespace javaidx
