@@ -213,7 +213,7 @@ namespace javaidx
                 {
                     UInt16 length = StreamReaderHelper.ReadUInt16BigEndian(fileStream);
                     string headerName = StreamReaderHelper.ReadString(fileStream, length);
-                    if (headerName == "<null>")
+                    if (headerName.Trim() == "<null>")
                     {
                         headerName = string.Empty;
                     }
@@ -249,6 +249,11 @@ namespace javaidx
                     }
                     else
                     {
+                        if (headerName.Trim() == "<null>")
+                        {
+                            headerName = string.Empty;
+                        }
+
                         length = StreamReaderHelper.ReadUInt16BigEndian(fileStream);
                         string headerValue = StreamReaderHelper.ReadString(fileStream, length);
 

@@ -206,9 +206,34 @@ namespace javaidx
                         text.AppendFormat("URL: {0}{1}", cacheEntry.Url, Environment.NewLine);
                         text.AppendFormat("Headers: {1}{0}", cacheEntry.HeadersText, Environment.NewLine);
                         text.AppendFormat("Content Length: {0}{1}", cacheEntry.ContentLength, Environment.NewLine);
-                        text.AppendFormat("Modified: {0}{1}", cacheEntry.LastModified.ToShortDateString() + " " + cacheEntry.LastModified.ToShortTimeString(), Environment.NewLine);
-                        text.AppendFormat("Expiration: {0}{1}", cacheEntry.ExpirationDate.ToShortDateString() + " " + cacheEntry.ExpirationDate.ToShortTimeString(), Environment.NewLine);
-                        text.AppendFormat("Validation: {0}{1}", cacheEntry.ValidationTimestamp.ToShortDateString() + " " + cacheEntry.ValidationTimestamp.ToShortTimeString(), Environment.NewLine);
+
+                        if (cacheEntry.LastModified.Year == 1970 | cacheEntry.LastModified.Year == 0001)
+                        {
+                            text.AppendFormat("Modified: {0}{1}", string.Empty, Environment.NewLine);
+                        }
+                        else
+                        {
+                            text.AppendFormat("Modified: {0}{1}", cacheEntry.LastModified.ToShortDateString() + " " + cacheEntry.LastModified.ToShortTimeString(), Environment.NewLine);
+                        }
+
+                        if (cacheEntry.ExpirationDate.Year == 1970 | cacheEntry.ExpirationDate.Year == 0001)
+                        {
+                            text.AppendFormat("Expiration: {0}{1}", string.Empty, Environment.NewLine);
+                        }
+                        else
+                        {
+                            text.AppendFormat("Expiration: {0}{1}", cacheEntry.ExpirationDate.ToShortDateString() + " " + cacheEntry.ExpirationDate.ToShortTimeString(), Environment.NewLine);
+                        }
+
+                        if (cacheEntry.ValidationTimestamp.Year == 1970 | cacheEntry.ValidationTimestamp.Year == 0001)
+                        {
+                            text.AppendFormat("Validation: {0}{1}", string.Empty, Environment.NewLine);
+                        }
+                        else
+                        {
+                            text.AppendFormat("Validation: {0}{1}", cacheEntry.ValidationTimestamp.ToShortDateString() + " " + cacheEntry.ValidationTimestamp.ToShortTimeString(), Environment.NewLine);
+                        }
+                        
                         text.AppendLine(string.Empty);
 
                         csvWriter.WriteField(cacheEntry.FilePath);
@@ -216,9 +241,34 @@ namespace javaidx
                         csvWriter.WriteField(cacheEntry.Url);
                         csvWriter.WriteField(cacheEntry.HeadersText);
                         csvWriter.WriteField(cacheEntry.ContentLength);
-                        csvWriter.WriteField(cacheEntry.LastModified.ToShortDateString() + " " + cacheEntry.LastModified.ToShortTimeString());
-                        csvWriter.WriteField(cacheEntry.ExpirationDate.ToShortDateString() + " " + cacheEntry.ExpirationDate.ToShortTimeString());
-                        csvWriter.WriteField(cacheEntry.ValidationTimestamp.ToShortDateString() + " " + cacheEntry.ValidationTimestamp.ToShortTimeString());
+
+                        if (cacheEntry.LastModified.Year == 1970 | cacheEntry.LastModified.Year == 0001)
+                        {
+                            csvWriter.WriteField(string.Empty);
+                        }
+                        else
+                        {
+                            csvWriter.WriteField(cacheEntry.LastModified.ToShortDateString() + " " + cacheEntry.LastModified.ToShortTimeString());
+                        }
+
+                        if (cacheEntry.ExpirationDate.Year == 1970 | cacheEntry.ExpirationDate.Year == 0001)
+                        {
+                            csvWriter.WriteField(string.Empty);
+                        }
+                        else
+                        {
+                            csvWriter.WriteField(cacheEntry.ExpirationDate.ToShortDateString() + " " + cacheEntry.ExpirationDate.ToShortTimeString());
+                        }
+
+                        if (cacheEntry.ValidationTimestamp.Year == 1970 | cacheEntry.ValidationTimestamp.Year == 0001)
+                        {
+                            csvWriter.WriteField(string.Empty);
+                        }
+                        else
+                        {
+                            csvWriter.WriteField(cacheEntry.ValidationTimestamp.ToShortDateString() + " " + cacheEntry.ValidationTimestamp.ToShortTimeString());
+                        }
+
                         csvWriter.NextRecord();
                     }
 
