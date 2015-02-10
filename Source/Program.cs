@@ -63,7 +63,7 @@ namespace javaidx
                 else
                 {
                     List<CacheEntry> cacheEntries = new List<CacheEntry>();
-                    foreach (string file in Directory.EnumerateFiles(options.Directory, "*.idx", SearchOption.AllDirectories))
+                    foreach (string file in System.IO.Directory.EnumerateFiles(options.Directory, "*.idx", SearchOption.AllDirectories))
                     {
                         CacheEntry cacheEntry = new CacheEntry(file);
                         if (cacheEntry.Error == true)
@@ -188,6 +188,7 @@ namespace javaidx
                     csvWriter.WriteField("File Path");
                     csvWriter.WriteField("File Name");
                     csvWriter.WriteField("URL");
+                    csvWriter.WriteField("Codebase IP");
                     csvWriter.WriteField("Headers");
                     csvWriter.WriteField("Content Length");
                     csvWriter.WriteField("Modified");
@@ -202,8 +203,9 @@ namespace javaidx
                     foreach (CacheEntry cacheEntry in sorted)
                     {
                         text.AppendFormat("File Path: {0}{1}", cacheEntry.FilePath, Environment.NewLine);
-                        text.AppendFormat("File Name: {0}{1}", cacheEntry.FileName, Environment.NewLine);
+                        text.AppendFormat("File Name: {0}{1}", cacheEntry.FileName, Environment.NewLine);                        
                         text.AppendFormat("URL: {0}{1}", cacheEntry.Url, Environment.NewLine);
+                        text.AppendFormat("Codebase IP: {0}{1}", cacheEntry.CodebaseIp, Environment.NewLine);
                         text.AppendFormat("Headers: {1}{0}", cacheEntry.HeadersText, Environment.NewLine);
                         text.AppendFormat("Content Length: {0}{1}", cacheEntry.ContentLength, Environment.NewLine);
 
@@ -238,6 +240,7 @@ namespace javaidx
 
                         csvWriter.WriteField(cacheEntry.FilePath);
                         csvWriter.WriteField(cacheEntry.FileName);
+                        csvWriter.WriteField(cacheEntry.CodebaseIp);
                         csvWriter.WriteField(cacheEntry.Url);
                         csvWriter.WriteField(cacheEntry.HeadersText);
                         csvWriter.WriteField(cacheEntry.ContentLength);

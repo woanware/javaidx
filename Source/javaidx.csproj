@@ -53,7 +53,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Libraries\Utility\Source\Utility.csproj">
+    <ProjectReference Include="..\..\Utility\Source\Utility.csproj">
       <Project>{31638293-73bf-4208-bea3-ac47117cef3a}</Project>
       <Name>Utility</Name>
     </ProjectReference>
